@@ -16,7 +16,7 @@ class Produto {
     }
 
     public String toString(){
-        return String.format("%s %.2f %d", produto, preco, codigo);
+        return String.format("%s $%.2f id:%d", produto, preco, codigo);
     }
 }
 
@@ -46,11 +46,11 @@ class ProdutoComposto extends Produto{
 
 class Carrinho{
     Produto[] itens = new Produto[20];
-    int ultimo = 0;
+    int ultimo = -1;
 
     public void adicionar(Produto item){
-        itens[ultimo] = item;
         ultimo++;
+        itens[ultimo] = item;
     }
 
     public void remover(int pos){
@@ -60,19 +60,45 @@ class Carrinho{
         itens[ultimo] = null;
         ultimo--;
     }
-    
+    public void comprar(){
+        System.out.println("Compra efetuada com sucesso!");
+    }
+
+    /*
+    public void exibir(){
+        int total = 0;
+        System.out.println("\n-------- Carrinho de Compras --------");
+        for(int i = 0; i < ultimo; i++){
+            System.out.println(i + " = " + Carrinho[i]);
+            total += Carrinho[i].preco;
+        }
+        System.out.printf("\n Total = $%.2f \n", total);
+    }*/
+    public String toString(){
+        double total = 0;
+        String saida = "\n-------- Carrinho de Compras --------\n";
+        for(int i = 0; i < ultimo; i++){
+            saida += i + " = " + itens[i] + "\n";
+            total += itens[i].preco;
+        }
+        saida += String.format("\n Total = $%.2f\n", total);
+        return saida;
+    }
 }
+
 
 public class Main{
     //inicializa o leitor do teclado
     static Scanner entrada = new Scanner(System.in);
 
-    static int qtd = 0;
+    //static int qtd = 0;
 
-    static Produto[] Menu, Carrinho;
+    static Produto[] Menu;
+    static Carrinho carrinho;
     //inicializador estático - inicia atributos estáticos
     static{
-        Carrinho = new Produto[20];
+        carrinho = new Carrinho();
+        //Carrinho = new Produto[20];
         Menu = new Produto[11];
         Menu[0] = new Produto("tinta", 80);
         Menu[1] = new Produto("lixa", 10);
@@ -102,12 +128,13 @@ public class Main{
             }
             else{
                 System.out.println("\n item escolhido:" + Menu[opcao]);
-                Carrinho[qtd] = Menu[opcao];
-                qtd++;
+                carrinho.adicionar(Menu[opcao]);
+                //Carrinho[qtd] = Menu[opcao];
+                //qtd++;
             }
         }
     }
-
+    /*
     public static void mostrarCarrinho(){
         double total = 0;
         System.out.println("\n-------- Carrinho de Compras --------");
@@ -116,7 +143,7 @@ public class Main{
             total += Carrinho[i].preco;
         }
         System.out.printf("\n Total = $%.2f \n", total);
-    }
+    }*/
 
     public static double orcamento(Produto[] nota){
         double total = 0;
@@ -145,7 +172,8 @@ public class Main{
                     //orcamento();
                     break;
                 case 3:
-                    mostrarCarrinho();
+                    System.out.println(carrinho);
+                    //mostrarCarrinho();
                     break;
                 case 0:
                     continue;
