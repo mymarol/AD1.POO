@@ -44,6 +44,24 @@ class ProdutoComposto extends Produto{
     }
 }
 
+class Carrinho{
+    Produto[] itens = new Produto[20];
+    int ultimo = 0;
+
+    public void adicionar(Produto item){
+        itens[ultimo] = item;
+        ultimo++;
+    }
+
+    public void remover(int pos){
+        for(int i = pos; i < ultimo; i++){
+            itens[i] = itens[i + 1];
+        }
+        itens[ultimo] = null;
+        ultimo--;
+    }
+    
+}
 
 public class Main{
     //inicializa o leitor do teclado
@@ -109,15 +127,6 @@ public class Main{
     }
 
     public static void main(String args[]){
-        /*Produto produto1 = new Produto("capacete", 100);
-        Produto[] vetor = {new Produto("pincel", 20), new Produto("brocha", 30),
-                new Produto("removedor", 60)};
-        ProdutoComposto produto2 = new ProdutoComposto("kit", vetor);
-        System.out.println(produto1);
-        System.out.println(produto2);
-        Produto[] produtos = {produto1, produto2};
-        System.out.println(orcamento(produtos));
-        */
 
         int opcao = -1;
         while (opcao != 0){
