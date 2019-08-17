@@ -1,3 +1,4 @@
+import javax.xml.bind.SchemaOutputResolver;
 import java.util.Scanner;
 
 class Produto {
@@ -77,6 +78,7 @@ class Carrinho{
     public String toString(){
         double total = 0;
         String saida = "\n-------- Carrinho de Compras --------\n";
+
         for(int i = 0; i < ultimo; i++){
             saida += i + " = " + itens[i] + "\n";
             total += itens[i].preco;
@@ -115,6 +117,47 @@ public class Main{
     };
 
     public static void exibirMenu(){
+        System.out.println("0 - Ver Produtos");
+        System.out.println("1 - Adicionar Produtos");
+        System.out.println("2 - Voltar Menu Principal");
+        int opcao = entrada.nextInt();
+        switch(opcao){
+            case 0:
+                exibirProdutos();
+                break;
+            case 1:
+                cadastrarProduto();
+                break;
+            case 2:
+                break;
+        }
+    }
+
+    public static void exibirProdutos() {
+        int opcao = -2;
+        while (opcao != -1) {
+            System.out.println("\n-------- Produtos Cadastrados --------");
+            for (int i = 0; i < Menu.length; i++) {
+                System.out.println(i + " = " + Menu[i]);
+            }
+            System.out.println("-1 = Sair");
+            opcao = entrada.nextInt();
+            if (opcao == -1) {
+                continue;
+            } else {
+                System.out.println("0 = Alterar Produto");
+                System.out.println("1 = Remover Produto");
+                System.out.println("-1 = Sair");
+            }
+        }
+    }
+
+    public static void cadastrarProduto(){
+
+    }
+
+    /*
+    public static void exibirMenu(){
         int opcao = -2;
         while(opcao != -1){
             System.out.println("\n-------- Menu Produtos --------");
@@ -133,7 +176,8 @@ public class Main{
                 //qtd++;
             }
         }
-    }
+    }*/
+
     /*
     public static void mostrarCarrinho(){
         double total = 0;
